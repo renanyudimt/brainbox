@@ -2,20 +2,47 @@ import { Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import BrainBoxSvg from "@src/assets/icons/light/brainbox.svg";
 import CopySvg from "@src/assets/icons/light/copy.svg";
 import ShareSvg from "@src/assets/icons/light/share.svg";
+import { useCallback } from "react";
 
 export const AI = ({ message }: { message: string }) => {
   const toast = useToast();
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(message).then(() => {
-      toast({
-        title: "Text copied to clipboard",
-        status: "info",
-        duration: 1000,
-        isClosable: true,
-      });
-    });
-  };
+  const handleCopy = useCallback(
+    (message: string) => {
+      const toast = useToast();
+
+      if (!navigator.clipboard) {
+        toast({
+          title: "Clipboard not supported (HTTPS required)",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        return;
+      }
+
+      navigator.clipboard
+        .writeText(message)
+        .then(() => {
+          toast({
+            title: "Text copied to clipboard",
+            status: "info",
+            duration: 1000,
+            isClosable: true,
+          });
+        })
+        .catch((error) => {
+          toast({
+            title: "Failed to copy text",
+            description: error.message,
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        });
+    },
+    [message, toast]
+  );
 
   return (
     <Flex

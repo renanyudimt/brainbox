@@ -25,6 +25,8 @@ export const OnboardingPage = () => {
     dragFree: false,
   });
 
+  console.log(`emblaApi`, emblaApi?.slideNodes());
+
   const onThumbClick = useCallback(
     (index: number) => {
       if (!emblaApi) return;
@@ -33,6 +35,11 @@ export const OnboardingPage = () => {
     },
     [emblaApi]
   );
+
+  const handleNextSlide = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -133,6 +140,7 @@ export const OnboardingPage = () => {
                       rounded="50%"
                       w="12px"
                       h="12px"
+                      onClick={() => onThumbClick(index)}
                     />
                   </Flex>
                 ) : (
@@ -141,7 +149,12 @@ export const OnboardingPage = () => {
                     w="9px"
                     h="9px"
                     key={index}
-                    bg="rgba(255,255,255,0.5)"
+                    _dark={{
+                      bg: "white",
+                    }}
+                    _light={{
+                      bg: "gray.500",
+                    }}
                     cursor="pointer"
                     onClick={() => onThumbClick(index)}
                   />
@@ -188,7 +201,7 @@ export const OnboardingPage = () => {
             <Image margin="auto" src={ArrowLeft} w="24px" h="24px" />
           </Button>
           <Image src={DividerVerticalSvg} w="2px" h="24px" />
-          <Button variant="unstyled">
+          <Button variant="unstyled" onClick={handleNextSlide}>
             <Image margin="auto" src={arrowRight} w="24px" h="24px" />
           </Button>
         </Flex>
