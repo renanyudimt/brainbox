@@ -1,12 +1,23 @@
-import { Box, Button, Flex, Image, Progress, Text } from "@chakra-ui/react";
-import SettingsSvg from "@src/assets/icons/light/settings.svg";
-import ChevronRightSvg from "@src/assets/icons/light/chevron-right.svg";
+import { Box, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
+import SettingsLight from "@src/assets/icons/light/settings.svg";
+import SettingsDark from "@src/assets/icons/dark/settings.svg";
+
+import HelpLight from "@src/assets/icons/light/help.svg";
+import HelpDark from "@src/assets/icons/dark/help.svg";
+import LogoutLight from "@src/assets/icons/light/logout.svg";
+import LogoutDark from "@src/assets/icons/dark/logout.svg";
 import RobotImage from "@src/assets/robot-image.jpeg";
-import LockSvg from "@src/assets/icons/light/lock.svg";
-import SupportSvg from "@src/assets/icons/light/help.svg";
-import LogoutSvg from "@src/assets/icons/light/logout.svg";
+
+import { ProfileButton } from "./components/ProfileButton";
+import { useNavigate } from "react-router-dom";
+import { AccountSecurityButton } from "./components/ProfileButton/AccountSecurity";
 
 export const ProfilePage = () => {
+  const navigate = useNavigate();
+  const settingsImage = useColorModeValue(SettingsLight, SettingsDark);
+  const helpImage = useColorModeValue(HelpLight, HelpDark);
+  const logoutImage = useColorModeValue(LogoutLight, LogoutDark);
+
   return (
     <Flex flexDir="column" flex={1} justifyContent="center" gap={8}>
       <Flex flexDir="column" gap={6} align="center" w="100%">
@@ -26,106 +37,25 @@ export const ProfilePage = () => {
           />
         </Box>
         <Flex flexDir="column" alignItems="center">
-          <Text fontWeight="bold" fontSize="27px" color="rgba(33, 33, 33, 1)">
+          <Text fontWeight="bold" fontSize="27px">
             Tom Hillson
           </Text>
-          <Text fontWeight={500} fontSize={14} color="rgba(50, 49, 66, 1)">
+          <Text fontWeight={500} fontSize={14} color="gray.700">
             Tomhill@mail.com
           </Text>
         </Flex>
       </Flex>
 
       <Flex flexDir="column" gap={3} flex={1} p={4}>
-        <Flex
-          alignItems="center"
-          as={Button}
-          variant="ghost"
-          p={12}
-          justifyContent="space-between"
-        >
-          <Flex gap={8} align="center">
-            <Box>
-              <Image src={SettingsSvg} w="32px" h="32px" />
-            </Box>
-            <Text fontSize={18} fontWeight={500}>
-              Preferences
-            </Text>
-          </Flex>
-          <Box>
-            <Image src={ChevronRightSvg} w="24px" h="24px" />
-          </Box>
-        </Flex>
-        <Flex
-          alignItems="center"
-          as={Button}
-          variant="ghost"
-          py={16}
-          px={12}
-          justifyContent="space-between"
-        >
-          <Flex gap={8}>
-            <Box>
-              <Image src={LockSvg} w="32px" h="32px" />
-            </Box>
-            <Flex flexDir="column" gap={4}>
-              <Text fontSize={18} fontWeight={500}>
-                Account Security
-              </Text>
-              <Progress
-                borderRadius="24px"
-                value={70}
-                colorScheme="green"
-                background="rgba(167, 167, 171, 1)"
-              />
-              <Text
-                fontWeight={500}
-                color="rgba(167, 167, 171, 1)"
-                textAlign="left"
-                fontSize="16px"
-              >
-                Excellent
-              </Text>
-            </Flex>
-          </Flex>
-          <Box>
-            <Image src={ChevronRightSvg} w="24px" h="24px" />
-          </Box>
-        </Flex>
-        <Flex
-          alignItems="center"
-          as={Button}
-          variant="ghost"
-          p={12}
-          justifyContent="space-between"
-        >
-          <Flex gap={8} align="center">
-            <Box>
-              <Image src={SupportSvg} w="32px" h="32px" />
-            </Box>
-            <Text fontSize={18} fontWeight={500}>
-              Customer Support
-            </Text>
-          </Flex>
-          <Box>
-            <Image src={ChevronRightSvg} w="24px" h="24px" />
-          </Box>
-        </Flex>
-        <Flex
-          alignItems="center"
-          as={Button}
-          variant="ghost"
-          p={12}
-          justifyContent="space-between"
-        >
-          <Flex gap={8} align="center">
-            <Box>
-              <Image src={LogoutSvg} w="32px" h="32px" />
-            </Box>
-            <Text fontSize={18} fontWeight={500}>
-              Logout
-            </Text>
-          </Flex>
-        </Flex>
+        <ProfileButton
+          icon={settingsImage}
+          title="Preferences"
+          onClick={() => navigate(`/profile/preferences`)}
+        />
+        <AccountSecurityButton />
+
+        <ProfileButton icon={helpImage} title="Customer Support" />
+        <ProfileButton icon={logoutImage} title="Logout" />
       </Flex>
     </Flex>
   );

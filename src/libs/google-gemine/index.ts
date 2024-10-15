@@ -2,6 +2,7 @@ import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
+  Content,
 } from "@google/generative-ai";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -19,7 +20,7 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-async function run(prompt: string) {
+async function run(prompt: string, history: Content[]) {
   const chatSession = model.startChat({
     generationConfig,
     safetySettings: [
@@ -40,10 +41,11 @@ async function run(prompt: string) {
         threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
       },
     ],
-    history: [],
+    history,
   });
 
   const result = await chatSession.sendMessage(prompt);
+  console.log(`result`, result);
   return result.response.text();
 }
 

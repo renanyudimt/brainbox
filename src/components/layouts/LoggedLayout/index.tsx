@@ -1,36 +1,59 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
-import ChevronLeft from "@src/assets/icons/light/chevron-left.svg";
-import EllipsisSvg from "@src/assets/icons/light/ellipsis.svg";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import ChevronLeftLight from "@src/assets/icons/light/chevron-left.svg";
+import ChevronLeftDark from "@src/assets/icons/dark/chevron-left.svg";
+
+import EllipsisSvgLight from "@src/assets/icons/light/ellipsis.svg";
+import EllipsisSvgDark from "@src/assets/icons/dark/ellipsis.svg";
+
 import { useMemo } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export const LoggedLayout = () => {
   const { pathname } = useLocation();
-  console.log(`pathname`, pathname);
+  const navigate = useNavigate();
+
   const getTitle = useMemo(() => {
     switch (pathname) {
-      case "/health":
+      case "/chat":
         return "Health";
       case "/profile":
         return "Profile";
+      case "/profile/preferences":
+        return "Preferences";
+
+      case "/profile/edit-information":
+        return "Edit Information";
+
+      case "/profile/invite-friend":
+        return "Invite Friend";
       default:
         return pathname;
     }
-  }, []);
+  }, [pathname]);
 
   const showProfileButton = useMemo(() => {
-    return true;
-  }, []);
+    return !pathname.includes("/profile");
+  }, [pathname]);
+
+  const chevronLeftImage = useColorModeValue(ChevronLeftLight, ChevronLeftDark);
+  const ellipsisImage = useColorModeValue(EllipsisSvgLight, EllipsisSvgDark);
 
   return (
     <Flex
       minH="100vh"
       minW="100vw"
       _dark={{
-        bg: "background.dark",
+        bg: "gray.950",
       }}
       _light={{
-        bg: "#fff",
+        bg: "white",
       }}
       justifyContent="center"
     >
@@ -54,19 +77,24 @@ export const LoggedLayout = () => {
             variant="ghost"
             w="46px"
             h="46px"
-            boxShadow="5.92px 11.84px 23.68px 0px #D3D1D84D"
+            _light={{
+              boxShadow: "5.92px 11.84px 23.68px 0px #D3D1D84D",
+            }}
+            _dark={{
+              background: `gray.850`,
+            }}
             borderRadius={8}
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)}
           >
-            <Image src={ChevronLeft} alt="Menu" />
+            <Image src={chevronLeftImage} />
           </Button>
           <Text fontWeight="500" fontSize={22}>
-            Health
+            {getTitle}
           </Text>
           {showProfileButton && (
             <Link to="/profile">
               <Button variant="ghost">
-                <Image src={EllipsisSvg} alt="Menu" />
+                <Image src={ellipsisImage} alt="Menu" />
               </Button>
             </Link>
           )}

@@ -6,7 +6,18 @@ export const useGeminiStore = create<GeminiStore>((set) => {
     recentPrompt: "",
     historyPrompts: [],
     loading: false,
+    typing: false,
     resultData: "",
+    toggleTyping: () => {
+      set((state) => {
+        return {
+          typing: !state.typing,
+        };
+      });
+    },
+    setTyping: (typing: boolean) => {
+      set({ typing });
+    },
     setRecentPrompt: (recentPrompt: string) => {
       set({ recentPrompt });
     },

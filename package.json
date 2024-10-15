@@ -16,7 +16,6 @@
     "@google/generative-ai": "^0.21.0",
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^11.11.8",
-    "lucide-react": "^0.452.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
@@ -26,7 +25,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
-    "@front/eslint-config": "*",
+    "@types/node": "^22.7.5",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",

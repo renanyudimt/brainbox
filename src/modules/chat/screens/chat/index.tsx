@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import {
-  Box,
+  Button,
   Flex,
   Image,
   Input,
@@ -34,8 +34,6 @@ export const ChatPage = () => {
     [onSendPrompt, recentPrompt, reset, resultData, setRecentPrompt]
   );
 
-  console.log(`recentPrompt`, recentPrompt);
-
   return (
     <Flex flexDir="column" flex={1}>
       <Flex flex={1} position="relative" overflow="auto">
@@ -65,7 +63,14 @@ export const ChatPage = () => {
                 h="inherit"
                 size="lg"
                 name="prompt"
-                boxShadow="0px 4px 77px 0px #E3E2E2"
+                _light={{
+                  backgroundColor: "white",
+                  boxShadow: "0px 4px 77px 0px gray.75",
+                }}
+                _dark={{
+                  backgroundColor: "gray.850",
+                }}
+                pr={14}
               />
             )}
           />
@@ -76,12 +81,14 @@ export const ChatPage = () => {
             h="inherit"
             w="32px"
           >
-            <Box onClick={handleSubmit(onSubmit)}>
+            <Button onClick={handleSubmit(onSubmit)} variant="unstyled">
               <Image src={SendSvg} alt="Send" h="24px" w="24px" mr={3} />
-            </Box>
+            </Button>
           </InputRightElement>
         </InputGroup>
       </Flex>
     </Flex>
   );
 };
+
+export default ChatPage;

@@ -8,10 +8,10 @@ export const DefaultLayout = () => {
       minH="100vh"
       minW="100vw"
       _dark={{
-        bg: "background.dark",
+        bg: "gray.950",
       }}
       _light={{
-        bg: "background.light",
+        bg: "white",
       }}
     >
       <Outlet />

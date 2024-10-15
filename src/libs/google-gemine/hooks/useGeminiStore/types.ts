@@ -8,6 +8,9 @@ export type GeminiStore = {
   historyPrompts: HistoricPrompt[];
   loading: boolean;
   resultData: string;
+  typing: boolean;
+  toggleTyping: () => void;
+  setTyping: (typing: boolean) => void;
   setRecentPrompt: (prompt: string) => void;
   setHistoryPrompts: (
     prompts:

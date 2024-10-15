@@ -9,9 +9,8 @@ export const AI = ({ message }: { message: string }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(message).then(() => {
       toast({
-        title: "Texto copiado.",
-        description: "O texto foi copiado para a área de transferência.",
-        status: "success",
+        title: "Text copied to clipboard",
+        status: "info",
         duration: 1000,
         isClosable: true,
       });
@@ -24,7 +23,12 @@ export const AI = ({ message }: { message: string }) => {
       py="12px"
       flexDir="column"
       gap={5}
-      background="#F7F7F8"
+      _light={{
+        background: `gray.50`,
+      }}
+      _dark={{
+        background: `gray.900`,
+      }}
       w="100%"
     >
       <Flex justifyContent="space-between" alignItems="center" gap={3}>
@@ -42,7 +46,12 @@ export const AI = ({ message }: { message: string }) => {
         <Text
           fontSize={["14px", "16px"]}
           fontWeight={400}
-          color="#2f2f2f"
+          _dark={{
+            color: `gray.450`,
+          }}
+          _light={{
+            color: `gray.850`,
+          }}
           dangerouslySetInnerHTML={{
             __html: message,
           }}

@@ -13,7 +13,7 @@ export const ChatInformations = () => {
   return (
     <>
       <Flex justifyContent="center" align="center">
-        <Text fontWeight="600" fontSize="40px" color="#757474" my="50px">
+        <Text fontWeight="600" fontSize="40px" color="gray.600" my="50px">
           BrainBox
         </Text>
       </Flex>
@@ -27,10 +27,15 @@ export const ChatInformations = () => {
             w="100%"
             py={9}
             px={12}
-            bg="#F7F7F8"
+            _light={{
+              background: "gray.50",
+            }}
+            _dark={{
+              background: `gray.900`,
+            }}
           >
             <Text
-              color="#A0A0A5"
+              color="gray.450"
               textAlign="center"
               fontWeight={400}
               fontSize={14}
