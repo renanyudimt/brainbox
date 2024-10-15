@@ -7,42 +7,37 @@ import { useCallback } from "react";
 export const AI = ({ message }: { message: string }) => {
   const toast = useToast();
 
-  const handleCopy = useCallback(
-    (message: string) => {
-      const toast = useToast();
+  const handleCopy = useCallback(() => {
+    if (!navigator.clipboard) {
+      toast({
+        title: "Clipboard not supported (HTTPS required)",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return;
+    }
 
-      if (!navigator.clipboard) {
+    navigator.clipboard
+      .writeText(message)
+      .then(() => {
         toast({
-          title: "Clipboard not supported (HTTPS required)",
+          title: "Text copied to clipboard",
+          status: "info",
+          duration: 1000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: "Failed to copy text",
+          description: error.message,
           status: "error",
           duration: 2000,
           isClosable: true,
         });
-        return;
-      }
-
-      navigator.clipboard
-        .writeText(message)
-        .then(() => {
-          toast({
-            title: "Text copied to clipboard",
-            status: "info",
-            duration: 1000,
-            isClosable: true,
-          });
-        })
-        .catch((error) => {
-          toast({
-            title: "Failed to copy text",
-            description: error.message,
-            status: "error",
-            duration: 2000,
-            isClosable: true,
-          });
-        });
-    },
-    [message, toast]
-  );
+      });
+  }, [message, toast]);
 
   return (
     <Flex
