@@ -12,6 +12,7 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 80
 
-CMD [ "serve", "-s", "dist" ]
+FROM nginx
+EXPOSE 80
+COPY --from=builder /app/build /usr/share/nginx/html
