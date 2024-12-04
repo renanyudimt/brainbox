@@ -25,8 +25,6 @@ export const OnboardingPage = () => {
     dragFree: false,
   });
 
-  console.log(`emblaApi`, emblaApi?.slideNodes());
-
   const onThumbClick = useCallback(
     (index: number) => {
       if (!emblaApi) return;
